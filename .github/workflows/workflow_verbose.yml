@@ -4,11 +4,10 @@ name: Azure CI
 
 # Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,18 +18,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
+    - name: Checkout
+      uses: actions/checkout@v2
+
     - name: Azure Login
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
-    - name: Checkout
-      uses: actions/checkout@v1
-    
-    - name: Azure CLI script
+    - name: Azure CLI - Show Status
       uses: azure/CLI@v1
       with:
         azcliversion: 2.20.0
         inlineScript: |
           az account show
-          az --version
+
+    - name: Azure CLI - Plan
+      if: github.event_name == 'pull_request'
+      uses: azure/CLI@v1
+      with: 
+        azcliversion: 2.20.0
+        inlineScript: |
+          az deployment sub what-if --location 'West Europe' --no-prompt --template-file $GITHUB_WORKSPACE/Templates/main.bicep
