@@ -39,4 +39,4 @@ jobs:
       with: 
         azcliversion: 2.20.0
         inlineScript: |
-          az deployment sub what-if --location 'West Europe' --no-prompt --template-file $GITHUB_WORKSPACE/Templates/main.bicep
+          sh $GITHUB_WORKSPACE/plan.sh
