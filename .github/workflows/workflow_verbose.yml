@@ -29,21 +29,19 @@ jobs:
     - name: Azure CLI - Show Status
       uses: azure/CLI@v1
       with:
-        azcliversion: 2.20.0
         inlineScript: |
           az account show
 
     - name: Azure CLI - Bicep Installation
       uses: azure/CLI@v1
       with:
-        azcliversion: 2.20.0
         inlineScript: |
-          az account show
+          az bicep install
+          az bicep --help
 
     - name: Azure CLI - Plan
       if: github.event_name == 'pull_request'
       uses: azure/CLI@v1
       with: 
-        azcliversion: 2.20.0
         inlineScript: |
           az deployment sub what-if --location 'Switzerland North' -f $GITHUB_WORKSPACE/Templates/main.bicep -p location='switzerlandnorth'
