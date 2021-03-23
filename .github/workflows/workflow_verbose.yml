@@ -25,23 +25,13 @@ jobs:
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
-    - name: Azure CLI - Show Status
-      uses: azure/CLI@v1
-      with:
-        inlineScript: |
-          az account show
-
-    - name: Azure CLI - Bicep Installation
-      uses: azure/CLI@v1
-      with:
-        inlineScript: |
-          az bicep install
-          az bicep --help
 
     - name: Azure CLI - Plan
       if: github.event_name == 'pull_request'
       uses: azure/CLI@v1
       with: 
         inlineScript: |
+          az account show
+          az bicep install
+          az bicep --help
           az deployment sub what-if --location 'Switzerland North' -f $GITHUB_WORKSPACE/Templates/main.bicep -p location='switzerlandnorth'
