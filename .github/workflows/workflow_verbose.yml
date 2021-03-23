@@ -33,6 +33,13 @@ jobs:
         inlineScript: |
           az account show
 
+    - name: Azure CLI - Install Bicep
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.20.0
+        inlineScript: |
+          az bicep install
+
     - name: Azure CLI - Plan
       if: github.event_name == 'pull_request'
       uses: azure/CLI@v1
