@@ -21,12 +21,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - run: | 
-          curl -Lo bicepinstall https://github.com/Azure/bicep/releases/latest/download/bicep-linux-x64
-          chmod +x ./bicepinstall
-          sudo mv ./bicepinstall /usr/local/bin/bicep
-          bicep --help
-
     - name: Azure Login
       uses: azure/login@v1
       with:
@@ -39,10 +33,17 @@ jobs:
         inlineScript: |
           az account show
 
+    - name: Azure CLI - Bicep Installation
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.20.0
+        inlineScript: |
+          az account show
+
     - name: Azure CLI - Plan
       if: github.event_name == 'pull_request'
       uses: azure/CLI@v1
       with: 
         azcliversion: 2.20.0
         inlineScript: |
-          sh $GITHUB_WORKSPACE/plan.sh
+          az deployment sub what-if --location 'Switzerland North' -f $GITHUB_WORKSPACE/Templates/main.bicep -p location='switzerlandnorth'
