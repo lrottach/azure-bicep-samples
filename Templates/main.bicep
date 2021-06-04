@@ -76,14 +76,3 @@ resource rg_hosts 'Microsoft.Resources/resourceGroups@2020-06-01' = {
   name: rgName_WvdHosts
   location: location
 }
-
-module vnet 'Modules/network.bicep' = {
-  name : 'networkDeployment'
-  scope : resourceGroup(rg_network.name)
-  params : {
-    vnetName : vnetName
-    vnetRange : vnetRange
-    subnetAdresses : subnetAdresses
-    subnetNames : subnetNames
-  }
-}
