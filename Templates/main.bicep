@@ -1,7 +1,20 @@
 targetScope = 'subscription'
 
 // General parameter
+@allowed([
+  'switzerlandnorth'
+  'westeurope'
+  'centralus'
+  'centralindia'
+])
 param location string = 'switzerlandnorth'
+
+@allowed([
+  'production'
+  'development'
+  'test'
+])
+param environment string
 
 // Virtual network parameter
 param vnet1Name string = 'network1'
