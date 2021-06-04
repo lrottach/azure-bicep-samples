@@ -4,14 +4,27 @@ targetScope = 'subscription'
 param location string = 'switzerlandnorth'
 
 // Virtual network parameter
-param vnetName string = 'vnet-sn-01'
-param vnetRange string = '10.100.0.0/16'
-param subnetAdresses array = [
+param vnet1Name string = 'network1'
+param vnet1Range string = '10.100.0.0/16'
+param vnet1SubnetAdresses array = [
   '10.100.1.0/24'
   '10.100.2.0/24'
   '10.100.3.0/24'
 ]
-param subnetNames array = [
+param vnet1SubnetNames array = [
+  'GatewaySubnet'
+  'BastionSubnet'
+  'FirewallSubnet'
+]
+
+param vnet2Name string = 'network2'
+param vnet2Range string = '10.101.0.0/16'
+param vnet2SubnetAdresses array = [
+  '10.101.1.0/24'
+  '10.101.2.0/24'
+  '10.101.3.0/24'
+]
+param vnet2SubnetNames array = [
   'GatewaySubnet'
   'BastionSubnet'
   'FirewallSubnet'
